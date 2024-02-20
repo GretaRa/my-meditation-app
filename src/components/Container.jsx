@@ -21,7 +21,7 @@ export default function Container() {
 
 	return (
 		<>
-			<div className="flex flex-col gap-4 backdrop-blur-xl border-2 rounded-sm p-4">
+			<div className="flex flex-col gap-4 backdrop-blur-xl border-2 rounded-sm p-8">
 				<SettingsPanel title={"Sound:"} items={sounds} />
 				<SettingsPanel title={"Duration:"} items={duration} />
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />

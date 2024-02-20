@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'rock-water-stream': "url('./assets/stones_water_stream.jpg')",
-        
+        'rocky-river': "url('./assets/stones_water_stream.jpg')",
+        'forest': "url('./assets/forest.jpg')",
       }
     },
   },

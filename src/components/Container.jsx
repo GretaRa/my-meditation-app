@@ -25,7 +25,7 @@ export default function Container() {
 				<SettingsPanel title={"Sound:"} items={sounds} />
 				<SettingsPanel title={"Duration:"} items={duration} />
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
-				<button className=" border border-white rounded-full px-2 hover:bg-zinc-500">Start</button>
+				<button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500">Start</button>
 			</div>
 		</>
 	);

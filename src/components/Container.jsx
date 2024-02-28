@@ -1,9 +1,12 @@
+import { useAudio } from "./useAudio";
 import SettingsPanel from "./SettingsPanel";
+import AlphaWaves from "../assets/alpha-waves-5min-2sec.flac"
+import Player from "./useAudio"
 
 export default function Container() {
 	const sounds = [
-		{ id: 1, title: "Alpha waves" },
-		{ id: 2, title: "Rain" },
+		{ id: 1, title: "Alpha waves", audioUrl: '../assets/alpha-waves-5min-2sec.flac' },
+		{ id: 2, title: "Rain", audioUrl: '../assets/alpha-waves-5min-2sec.flac' },
 	];
 
 	const duration = [
@@ -19,6 +22,7 @@ export default function Container() {
 		{ id: 2, title: "No" },
 	];
 
+
 	return (
 		<>
 			<div className="flex flex-col gap-4 backdrop-blur-xl border-2 rounded-sm p-8">
@@ -26,6 +30,7 @@ export default function Container() {
 				<SettingsPanel title={"Duration:"} items={duration} />
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
 				<button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500">Start</button>
+				<Player url={AlphaWaves}/>
 			</div>
 		</>
 	);

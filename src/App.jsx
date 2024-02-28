@@ -1,29 +1,22 @@
 import Container from "./components/Container"
 import { useState } from "react";
-import SettingsPanel from "./components/SettingsPanel"
 
 function App() {
 
   const backgrounds = [
-		{ id: 1, title: "Rocky river" },
-		{ id: 2, title: "Forest" },
+		{ id: 1, title: "Rocky river", bgImg: "rocky-river" },
+		{ id: 2, title: "Forest", bgImg: "forest" },
 	];
 
   const [bgImage, setBgImage] = useState('forest');
-
-  const handleBgChange = () =>{
-    setBgImage('rock-water-stream')
-  }
+  
+  
 
   return (
     <>
-    <div className={`h-screen bg-${bgImage} bg-cover text-xl flex justify-center items-center`}>
+    <div className={`h-screen bg-forest bg-cover text-xl flex justify-center items-center`}>
     <div className=" absolute bottom-6 ">
-        <SettingsPanel
-          title={"Background"}
-          items={backgrounds}
-          onClick={handleBgChange}
-        />
+      {backgrounds.map((background) => <button key={background.id} className="border border-white rounded-full px-4 py-1 hover:bg-zinc-500 active:bg-zinc-500">{background.title}</button>)}
       </div>
       <div>
         <Container/>

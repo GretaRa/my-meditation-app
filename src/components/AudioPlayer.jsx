@@ -34,7 +34,7 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause }) => {
 	return (
 		<div>
 			<audio ref={audioRef} />
-			<button onClick={handlePlayPause}>{playing ? "Pause" : "Play"}</button>
+			<button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500" onClick={handlePlayPause}>{playing ? "Pause" : "Play"}</button>
 		</div>
 	);
 };

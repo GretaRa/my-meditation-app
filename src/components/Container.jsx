@@ -7,7 +7,7 @@ export default function Container() {
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleAudioSelect = (audioLabel) => {
-		const audioSource = `src/assets/${audioLabel.toLowerCase()}.mp3`;
+		const audioSource = `assets/${audioLabel.toLowerCase()}.mp3`;
 		setSelectedAudio(audioSource);
 		console.log(audioSource);
 	};

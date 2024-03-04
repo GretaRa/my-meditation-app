@@ -22,12 +22,12 @@ export function useAudio(url) {
   return [playing, toggle];
 }
 
-export default function Player ({ url }) {
-  const [playing, toggle] = useAudio(url);
+// export default function Player ({ url }) {
+//   const [playing, toggle] = useAudio(url);
 
-  return (
-    <div>
-      <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+//     </div>
+//   );
+// }

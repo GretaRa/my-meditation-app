@@ -1,12 +1,17 @@
 import { useAudio } from "./useAudio";
 import SettingsPanel from "./SettingsPanel";
 import AlphaWaves from "../assets/alpha-waves-5min-2sec.flac"
-import Player from "./useAudio"
+import RainSound from "../assets/src_assets_audio_rain-in-forest-5min-2sec.mp3"
+import { useState } from "react";
+
 
 export default function Container() {
+	const [sound, setSound] = useState(AlphaWaves)
+	const [playing, toggle] = useAudio(sound);
+
 	const sounds = [
 		{ id: 1, title: "Alpha waves", audioUrl: '../assets/alpha-waves-5min-2sec.flac' },
-		{ id: 2, title: "Rain", audioUrl: '../assets/alpha-waves-5min-2sec.flac' },
+		{ id: 2, title: "Rain", audioUrl: '../assets/src_assets_audio_rain-in-forest-5min-2sec.mp3' },
 	];
 
 	const duration = [
@@ -21,16 +26,20 @@ export default function Container() {
 		{ id: 1, title: "Yes" },
 		{ id: 2, title: "No" },
 	];
-
+ function select (item){
+	setSound(RainSound)
+	console.log(item.audioUrl);
+ }
+ 
 
 	return (
 		<>
 			<div className="flex flex-col gap-4 backdrop-blur-xl border-2 rounded-sm p-8">
-				<SettingsPanel title={"Sound:"} items={sounds} />
+				<SettingsPanel title={"Sound:"} items={sounds} click={select} />
 				<SettingsPanel title={"Duration:"} items={duration} />
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
-				<button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500">Start</button>
-				<Player url={AlphaWaves}/>
+				<button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500" onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+				
 			</div>
 		</>
 	);

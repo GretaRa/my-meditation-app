@@ -14,7 +14,6 @@ export default function Container() {
 
 	const handleDurationSelect = (duration) => {
 		setSelectedDuration(duration);
-		console.log(selectedDuration);
 	};
 
 	const handlePlayPause = (play) => {

@@ -2,9 +2,7 @@
 export default function SettingsPanel({ title, items, onSelect }) {
 	
 	const handleClick = (item) => {
-		
 		onSelect(item.label);
-		console.log(item.label);
 	};
 
 	return (

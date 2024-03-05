@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const AudioPlayer = ({ audioSource, isPlaying, onPlayPause }) => {
+const AudioPlayer = ({ audioSource, isPlaying, onPlayPause, duration }) => {
   const audioRef = useRef(null);
+  const timerIntervalRef = useRef(null);
   const [playing, setPlaying] = useState(isPlaying);
   const [remainingTime, setRemainingTime] = useState(null);
-  const targetDuration = 10 * 60; // Target duration in seconds (10 minutes)
+  const targetDuration = duration * 60; // Target duration in seconds (10 minutes)
 
   useEffect(() => {
     if (audioRef.current) {
@@ -12,20 +13,34 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause }) => {
         audioRef.current.src = audioSource;
         if (playing) {
           audioRef.current.play();
-          // Set a timer to update the remaining time every second
-          const timerInterval = setInterval(() => {
-            const timeLeft = calculateRemainingTime();
-            setRemainingTime(timeLeft);
-          }, 1000);
-          return () => clearInterval(timerInterval);
+          startTimer();
         }
       } else {
         audioRef.current.pause();
         setPlaying(false);
         setRemainingTime(null);
+        clearTimer();
       }
     }
-  }, [audioSource, playing]);
+  }, [audioSource, playing, duration]);
+
+  const startTimer = () => {
+    clearTimer(); // Clear any existing interval before starting a new one
+    timerIntervalRef.current = setInterval(() => {
+      const timeLeft = calculateRemainingTime();
+      setRemainingTime(timeLeft);
+      // Check if the desired duration is reached
+      if (audioRef.current.currentTime >= targetDuration) {
+        handlePause();
+      }
+    }, 1000);
+  };
+
+  const clearTimer = () => {
+    if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
+    }
+  };
 
   const handlePlayPause = () => {
     if (audioRef.current) {
@@ -35,16 +50,7 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause }) => {
         audioRef.current.play();
         setPlaying(true);
         onPlayPause(true);
-        // Set a timer to update the remaining time every second
-        const timerInterval = setInterval(() => {
-          const timeLeft = calculateRemainingTime();
-          setRemainingTime(timeLeft);
-          // Check if the desired duration is reached
-          if (audioRef.current.currentTime >= targetDuration) {
-            handlePause();
-          }
-        }, 1000);
-        return () => clearInterval(timerInterval);
+        startTimer();
       }
     }
   };
@@ -55,6 +61,7 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause }) => {
       setPlaying(false);
       onPlayPause(false);
       setRemainingTime(null);
+      clearTimer();
     }
   };
 

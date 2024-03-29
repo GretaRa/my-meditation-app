@@ -23,7 +23,7 @@ export default function Container() {
 	const sounds = [
 		{ id: 1, title: "Alpha waves", label: "AlphaWaves" },
 		{ id: 2, title: "Rain", label: "Rain" },
-		{ id: 3, title: "Other", label: "Other" },
+		{ id: 3, title: "Piano", label: "Piano" },
 	];
 
 	const duration = [

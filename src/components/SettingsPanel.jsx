@@ -1,8 +1,10 @@
-
+import { useState } from "react";
 export default function SettingsPanel({ title, items, onSelect }) {
-	
+	const [selectedItem, setSelectedItem] = useState(null);
+
 	const handleClick = (item) => {
 		onSelect(item.label);
+		setSelectedItem(item.label);
 	};
 
 	return (
@@ -14,7 +16,9 @@ export default function SettingsPanel({ title, items, onSelect }) {
 						key={item.id}
 						value={item.id}
 						onClick={() => handleClick(item)}
-						className={`border border-white rounded-full px-4 py-1 hover:bg-zinc-500`}
+						className={`border border-white rounded-full px-4 py-1 hover:bg-zinc-500 ${
+							selectedItem === item.label ? "bg-zinc-500" : "bg-transparent"
+						}`}
 					>
 						{item.title}
 					</button>

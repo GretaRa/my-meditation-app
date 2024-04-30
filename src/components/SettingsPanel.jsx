@@ -1,6 +1,6 @@
 import { useState } from "react";
-export default function SettingsPanel({ title, items, onSelect }) {
-	const [selectedItem, setSelectedItem] = useState(null);
+export default function SettingsPanel({ title, items, onSelect, defaultSelectedLabel }) {
+	const [selectedItem, setSelectedItem] = useState(defaultSelectedLabel || '');
 
 	const handleClick = (item) => {
 		onSelect(item.label);

@@ -3,25 +3,50 @@ import { useState } from "react";
 
 function App() {
 	const backgrounds = [
-		{ id: 1, title: "Rocky river", bgImg: "rocky-river" },
-		{ id: 2, title: "Forest", bgImg: "forest" },
+		{
+			id: 1,
+			title: "Rocky river",
+			label: "url('../assets/stones_water_stream.jpg",
+		},
+		{ id: 2, title: "Forest", label: "url('../assets/forest.jpg')" },
 	];
 
-	const [bgImage, setBgImage] = useState("forest");
+	const [backgroundImage, setBackgroundImage] = useState(
+		"url('../assets/forest.jpg')"
+	);
+
+	const [selectedItem, setSelectedItem] = useState("url('../assets/forest.jpg')");
+
+	const changeBackground = (imageLabel) => {
+		setBackgroundImage(imageLabel);
+		setSelectedItem(imageLabel);
+	};
 
 	return (
 		<>
 			<div
-				className={`h-screen bg-forest bg-cover text-xl flex justify-center items-center`}
+				className={`h-screen text-xl flex justify-center items-center`}
+				style={{
+					backgroundImage: backgroundImage,
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+				}}
 			>
-				<div className=" absolute bottom-6 ">
-					{backgrounds.map((background) => (
+				<div className=" absolute bottom-6 flex gap-2">
+					{backgrounds.map((image) => (
+						<div
+            key={image.id}
+            className="relative m-2 rounded-full backdrop-blur-sm"
+          >
 						<button
-							key={background.id}
-							className="border border-white rounded-full px-4 py-1 hover:bg-zinc-500 active:bg-zinc-500"
+							key={image.id}
+							className={`border border-white rounded-full px-4 py-1 hover:bg-zinc-500 bg-blur-md ${
+								selectedItem === image.label ? "bg-zinc-500" : "bg-transparent"}`}
+							onClick={() => changeBackground(image.label)}
 						>
-							{background.title}
+							{image.title}
 						</button>
+						</div>
 					))}
 				</div>
 				<div>

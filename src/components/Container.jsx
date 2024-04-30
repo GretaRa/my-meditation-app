@@ -28,10 +28,10 @@ export default function Container() {
 
 	const duration = [
 		{ id: 1, title: "5", label: 5 },
-		{ id: 2, title: "10",label: 10 },
-		{ id: 3, title: "15",label: 15 },
-		{ id: 4, title: "20",label: 20 },
-		{ id: 5, title: "30",label: 30 },
+		{ id: 2, title: "10", label: 10 },
+		{ id: 3, title: "15", label: 15 },
+		{ id: 4, title: "20", label: 20 },
+		{ id: 5, title: "30", label: 30 },
 	];
 
 	const lastMinute = [
@@ -46,14 +46,15 @@ export default function Container() {
 					title={"Sound:"}
 					items={sounds}
 					onSelect={handleAudioSelect}
+					defaultSelectedLabel={"AlphaWaves"}
 				/>
 				<SettingsPanel
 					title={"Duration:"}
 					items={duration}
 					onSelect={handleDurationSelect}
+					defaultSelectedLabel={5}
 				/>
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
-				{/* <button className=" border border-white rounded-full px-2 py-1 hover:bg-zinc-500" onClick={toggle}>{playing ? "Pause" : "Play"}</button> */}
 				<AudioPlayer
 					audioSource={selectedAudio}
 					isPlaying={isPlaying}

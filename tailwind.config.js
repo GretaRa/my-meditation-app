@@ -4,14 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'rocky-river': "url('./assets/stones_water_stream.jpg')",
-        'forest': "url('./assets/forest.jpg')",
-      }
-    },
-  },
+  theme: {},
   plugins: [],
 }
 

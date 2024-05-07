@@ -3,8 +3,9 @@ import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 
 export default function Container() {
-	const [selectedAudio, setSelectedAudio] = useState(null);
-	const [selectedDuration, setSelectedDuration] = useState(null);
+	const [selectedAudio, setSelectedAudio] = useState("assets/alphawaves.mp3");
+	const [selectedDuration, setSelectedDuration] = useState(5);
+	const [warning, setWarning] = useState(true);
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleAudioSelect = (audioLabel) => {
@@ -14,6 +15,10 @@ export default function Container() {
 
 	const handleDurationSelect = (duration) => {
 		setSelectedDuration(duration);
+	};
+
+	const handleWarningSelect = (warning) => {
+		setWarning(warning);
 	};
 
 	const handlePlayPause = (play) => {
@@ -35,8 +40,8 @@ export default function Container() {
 	];
 
 	const lastMinute = [
-		{ id: 1, title: "Yes" },
-		{ id: 2, title: "No" },
+		{ id: 1, title: "Yes", label: true },
+		{ id: 2, title: "No", label: false },
 	];
 
 	return (
@@ -54,11 +59,16 @@ export default function Container() {
 					onSelect={handleDurationSelect}
 					defaultSelectedLabel={5}
 				/>
-				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
+				<SettingsPanel
+					title={"Last minute warning:"}
+					items={lastMinute}
+					onSelect={handleWarningSelect}
+					defaultSelectedLabel={true}
+				/>
 				<AudioPlayer
 					audioSource={selectedAudio}
-					secondaryAudioSource={'assets/one-minute-warning-13sec.mp3'}
-					playSecondaryAtOneMinute={true}
+					secondaryAudioSource={"assets/one-minute-warning-13sec.mp3"}
+					playSecondaryAtOneMinute={warning}
 					isPlaying={isPlaying}
 					onPlayPause={handlePlayPause}
 					duration={selectedDuration}

@@ -15,7 +15,9 @@ function App() {
 		"url('../assets/forest.jpg')"
 	);
 
-	const [selectedItem, setSelectedItem] = useState("url('../assets/forest.jpg')");
+	const [selectedItem, setSelectedItem] = useState(
+		"url('../assets/forest.jpg')"
+	);
 
 	const changeBackground = (imageLabel) => {
 		setBackgroundImage(imageLabel);
@@ -35,17 +37,20 @@ function App() {
 				<div className=" absolute bottom-6 flex gap-2">
 					{backgrounds.map((image) => (
 						<div
-            key={image.id}
-            className="relative m-2 rounded-full backdrop-blur-sm"
-          >
-						<button
 							key={image.id}
-							className={`border border-white rounded-full px-4 py-1 hover:bg-zinc-500 bg-blur-md ${
-								selectedItem === image.label ? "bg-zinc-500" : "bg-transparent"}`}
-							onClick={() => changeBackground(image.label)}
+							className="relative m-2 rounded-full backdrop-blur-sm"
 						>
-							{image.title}
-						</button>
+							<button
+								key={image.id}
+								className={`border border-white rounded-full px-4 py-1 hover:bg-zinc-500 bg-blur-md ${
+									selectedItem === image.label
+										? "bg-zinc-500"
+										: "bg-transparent"
+								}`}
+								onClick={() => changeBackground(image.label)}
+							>
+								{image.title}
+							</button>
 						</div>
 					))}
 				</div>

@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
-const AudioPlayer = ({ audioSource, isPlaying, onPlayPause, duration }) => {
+const AudioPlayer = ({ audioSource, secondaryAudioSource, isPlaying, playSecondaryAtOneMinute, onPlayPause, duration }) => {
   const audioRef = useRef(null);
+  const secondaryAudioRef = useRef(null);
   const timerIntervalRef = useRef(null);
   const [playing, setPlaying] = useState(isPlaying);
   const [remainingTime, setRemainingTime] = useState(null);
@@ -29,6 +30,10 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause, duration }) => {
     timerIntervalRef.current = setInterval(() => {
       const timeLeft = calculateRemainingTime();
       setRemainingTime(timeLeft);
+       // Play secondary audio when remaining time is 1 minute if the option is selected
+       if (playSecondaryAtOneMinute && timeLeft === '1:00') {
+        playSecondaryAudio();
+      }
       // Check if the desired duration is reached
       if (audioRef.current.currentTime >= targetDuration) {
         handlePause();
@@ -63,6 +68,10 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause, duration }) => {
       setRemainingTime(null);
       clearTimer();
     }
+      // Pause the secondary audio if it's playing
+    if (secondaryAudioRef.current && !secondaryAudioRef.current.paused) {
+      secondaryAudioRef.current.pause();
+    }
   };
 
   const calculateRemainingTime = () => {
@@ -75,14 +84,26 @@ const AudioPlayer = ({ audioSource, isPlaying, onPlayPause, duration }) => {
     return '0:00';
   };
 
+  const playSecondaryAudio = async () => {
+    // Check if the secondary audio element is available
+    if (secondaryAudioRef.current) {
+      try {
+        await secondaryAudioRef.current.play();
+      } catch (error) {
+        console.error('Failed to play secondary audio:', error);
+      }
+    }
+  };
+
   return (
     <div>
       <audio ref={audioRef} />
+      <audio ref={secondaryAudioRef} src={secondaryAudioSource} />
       <button
         className="border border-white rounded-full px-2 py-1 hover:bg-zinc-500"
         onClick={handlePlayPause}
       >
-        {playing ? `Pause (${remainingTime})` : "Play"}
+        {playing ? `Stop (${remainingTime})` : "Play"}
       </button>
     </div>
   );

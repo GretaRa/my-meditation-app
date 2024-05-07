@@ -57,6 +57,8 @@ export default function Container() {
 				<SettingsPanel title={"Last minute warning:"} items={lastMinute} />
 				<AudioPlayer
 					audioSource={selectedAudio}
+					secondaryAudioSource={'assets/one-minute-warning-13sec.mp3'}
+					playSecondaryAtOneMinute={true}
 					isPlaying={isPlaying}
 					onPlayPause={handlePlayPause}
 					duration={selectedDuration}

@@ -1,6 +1,7 @@
 import SettingsPanel from "./SettingsPanel";
 import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
+import CheckIn from "./CheckIn";
 
 export default function Container() {
 	const [selectedAudio, setSelectedAudio] = useState("assets/alphawaves.mp3");

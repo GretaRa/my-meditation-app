@@ -1,5 +1,6 @@
 import Container from "./components/Container";
 import { useState } from "react";
+import CheckIn from "./components/CheckIn";
 
 function App() {
 	const backgrounds = [
@@ -34,6 +35,7 @@ function App() {
 					backgroundPosition: "center",
 				}}
 			>
+				<CheckIn/>
 				<div className=" absolute bottom-6 flex gap-2">
 					{backgrounds.map((image) => (
 						<div

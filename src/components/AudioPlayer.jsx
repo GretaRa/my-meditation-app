@@ -95,6 +95,7 @@ const AudioPlayer = ({
 		// Check if the secondary audio element is available
 		if (secondaryAudioRef.current) {
 			try {
+				secondaryAudioRef.current.volume = 0.5;
 				await secondaryAudioRef.current.play();
 			} catch (error) {
 				console.error("Failed to play secondary audio:", error);

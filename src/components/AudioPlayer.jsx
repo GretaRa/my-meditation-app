@@ -12,7 +12,7 @@ const AudioPlayer = ({
 	const secondaryAudioRef = useRef(null);
 	const timerIntervalRef = useRef(null);
 	const [playing, setPlaying] = useState(isPlaying);
-	const [remainingTime, setRemainingTime] = useState(null);
+	const [remainingTime, setRemainingTime] = useState('0:00');
 	const targetDuration = duration * 60; // Target duration in seconds (10 minutes)
 
 	useEffect(() => {
@@ -22,11 +22,12 @@ const AudioPlayer = ({
 				if (playing) {
 					audioRef.current.play();
 					startTimer();
+					setRemainingTime(`${duration + ':00'}`)
 				}
 			} else {
 				audioRef.current.pause();
 				setPlaying(false);
-				setRemainingTime(null);
+				setRemainingTime('0:00');
 				clearTimer();
 			}
 		}
@@ -72,7 +73,7 @@ const AudioPlayer = ({
 			audioRef.current.pause();
 			setPlaying(false);
 			onPlayPause(false);
-			setRemainingTime(null);
+			setRemainingTime('0:00');
 			clearTimer();
 		}
 		// Pause the secondary audio if it's playing

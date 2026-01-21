@@ -3,26 +3,34 @@ import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 
 export default function Container() {
-	const [selectedAudio, setSelectedAudio] = useState("assets/alphawaves.mp3");
-	const [selectedDuration, setSelectedDuration] = useState(5);
-	const [warning, setWarning] = useState(true);
+	const [selectedAudio, setSelectedAudio] = useState();
+	const [selectedDuration, setSelectedDuration] = useState();
+	const [warning, setWarning] = useState();
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleAudioSelect = (audioLabel) => {
 		const audioSource = `assets/${audioLabel.toLowerCase()}.mp3`;
 		setSelectedAudio(audioSource);
+		localStorage.setItem("selectedAudio", JSON.stringify(audioLabel));
 	};
 
 	const handleDurationSelect = (duration) => {
 		setSelectedDuration(duration);
+		localStorage.setItem("selectedDuration", duration);
 	};
 
 	const handleWarningSelect = (warning) => {
 		setWarning(warning);
+		localStorage.setItem("selectedWarning", JSON.stringify(warning));
 	};
 
 	const handlePlayPause = (play) => {
 		setIsPlaying(play);
+	};
+
+	const getDefault = (storageKey, defaultSetting) => {
+		const saved = JSON.parse(localStorage.getItem(`${storageKey}`));
+		return saved !== null ? saved : defaultSetting;
 	};
 
 	const sounds = [
@@ -51,19 +59,19 @@ export default function Container() {
 					title={"Sound:"}
 					items={sounds}
 					onSelect={handleAudioSelect}
-					defaultSelectedLabel={"AlphaWaves"}
+					defaultSelectedLabel={getDefault("selectedAudio", "AlphaWaves")}
 				/>
 				<SettingsPanel
 					title={"Duration:"}
 					items={duration}
 					onSelect={handleDurationSelect}
-					defaultSelectedLabel={5}
+					defaultSelectedLabel={getDefault("selectedDuration", 5)}
 				/>
 				<SettingsPanel
 					title={"Last minute warning:"}
 					items={lastMinute}
 					onSelect={handleWarningSelect}
-					defaultSelectedLabel={true}
+					defaultSelectedLabel={getDefault("selectedWarning", true)}
 				/>
 				<AudioPlayer
 					audioSource={selectedAudio}

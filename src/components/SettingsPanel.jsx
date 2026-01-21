@@ -5,7 +5,7 @@ export default function SettingsPanel({
 	onSelect,
 	defaultSelectedLabel,
 }) {
-	const [selectedItem, setSelectedItem] = useState(defaultSelectedLabel || "");
+	const [selectedItem, setSelectedItem] = useState(defaultSelectedLabel !== null ? defaultSelectedLabel : items[0].label);
 
 	const handleClick = (item) => {
 		onSelect(item.label);

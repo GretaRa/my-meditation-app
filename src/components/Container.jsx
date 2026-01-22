@@ -3,12 +3,18 @@ import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 
 export default function Container() {
-	const [selectedAudio, setSelectedAudio] = useState();
-	const [selectedDuration, setSelectedDuration] = useState();
-	const [warning, setWarning] = useState();
+	const [selectedAudioLabel, setSelectedAudioLabel] = useState(() =>
+		getStored("selectedAudio", "AlphaWaves")
+	);
+	const [selectedAudio, setSelectedAudio] = useState(() => {
+		const label = getStored("selectedAudio", "AlphaWaves");
+		return `assets/${label.toLowerCase()}.mp3`});
+	const [selectedDuration, setSelectedDuration] = useState(() => getStored("selectedDuration", 5));
+	const [warning, setWarning] = useState(() => getStored("warning", true));
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleAudioSelect = (audioLabel) => {
+		setSelectedAudioLabel(audioLabel)
 		const audioSource = `assets/${audioLabel.toLowerCase()}.mp3`;
 		setSelectedAudio(audioSource);
 		localStorage.setItem("selectedAudio", JSON.stringify(audioLabel));
@@ -21,17 +27,17 @@ export default function Container() {
 
 	const handleWarningSelect = (warning) => {
 		setWarning(warning);
-		localStorage.setItem("selectedWarning", JSON.stringify(warning));
+		localStorage.setItem("warning", JSON.stringify(warning));
 	};
 
 	const handlePlayPause = (play) => {
 		setIsPlaying(play);
 	};
 
-	const getDefault = (storageKey, defaultSetting) => {
-		const saved = JSON.parse(localStorage.getItem(`${storageKey}`));
-		return saved !== null ? saved : defaultSetting;
-	};
+	function getStored (key, fallback) {
+		const stored = localStorage.getItem(key);
+		return stored !== null ? JSON.parse(stored) : fallback;
+	}
 
 	const sounds = [
 		{ id: 1, title: "Alpha waves", label: "AlphaWaves" },
@@ -59,19 +65,19 @@ export default function Container() {
 					title={"Sound:"}
 					items={sounds}
 					onSelect={handleAudioSelect}
-					defaultSelectedLabel={getDefault("selectedAudio", "AlphaWaves")}
+					defaultSelectedLabel={selectedAudioLabel}
 				/>
 				<SettingsPanel
 					title={"Duration:"}
 					items={duration}
 					onSelect={handleDurationSelect}
-					defaultSelectedLabel={getDefault("selectedDuration", 5)}
+					defaultSelectedLabel={selectedDuration}
 				/>
 				<SettingsPanel
 					title={"Last minute warning:"}
 					items={lastMinute}
 					onSelect={handleWarningSelect}
-					defaultSelectedLabel={getDefault("selectedWarning", true)}
+					defaultSelectedLabel={warning}
 				/>
 				<AudioPlayer
 					audioSource={selectedAudio}
